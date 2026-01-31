@@ -1,0 +1,36 @@
+name: Lunch Agent
+on:
+  schedule:
+    # 9am Pacific during PST
+    # 10am Pacific during PDT
+    - cron: "0 17 * * 1-5"
+  workflow_dispatch:
+
+jobs:
+  run-agent:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run lunch agent
+        env:
+          MAILERSEND_API_KEY: ${{ secrets.MAILERSEND_API_KEY }}
+          FROM_EMAIL: ${{ vars.FROM_EMAIL }}
+          RECIPIENTS: ${{ vars.RECIPIENTS }}
+          MAX_CALORIES: ${{ vars.MAX_CALORIES }}
+          MIN_GRAMS_PROTEIN: ${{ vars.MIN_GRAMS_PROTEIN }}
+          
+        run: |
+          python main.py
