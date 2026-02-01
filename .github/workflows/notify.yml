@@ -1,4 +1,4 @@
-name: Lunch Agent
+name: Notify
 on:
   schedule:
     # 9am Pacific during PST
@@ -26,9 +26,11 @@ jobs:
 
       - name: Run lunch agent
         env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           MAILERSEND_API_KEY: ${{ secrets.MAILERSEND_API_KEY }}
+          NOTIFY_METHODS: ${{ vars.NOTIFY_METHODS }}
           FROM_EMAIL: ${{ vars.FROM_EMAIL }}
-          RECIPIENTS: ${{ vars.RECIPIENTS }}
+          EMAIL_RECIPIENTS: ${{ vars.EMAIL_RECIPIENTS }}
           MAX_CALORIES: ${{ vars.MAX_CALORIES }}
           MIN_GRAMS_PROTEIN: ${{ vars.MIN_GRAMS_PROTEIN }}
           
