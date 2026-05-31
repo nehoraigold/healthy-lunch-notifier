@@ -3,7 +3,7 @@ on:
   schedule:
     # 9am Pacific during PST
     # 10am Pacific during PDT
-    - cron: "0 17 * * 1-5"
+    - cron: "0 13 * * 1-5"
   workflow_dispatch:
 
 jobs:
