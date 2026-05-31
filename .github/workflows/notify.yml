@@ -1,8 +1,6 @@
 name: Notify
 on:
   schedule:
-    # 9am Pacific during PST
-    # 10am Pacific during PDT
     - cron: "0 13 * * 1-5"
   workflow_dispatch:
 
@@ -15,7 +13,7 @@ jobs:
         uses: actions/checkout@v5
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.11"
 
